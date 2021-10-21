@@ -19,7 +19,8 @@ class token_check
     public function handle(Request $request, Closure $next)
     {
 
-        if ($request->header("API_KEY") == null) {
+        // return response()->json($request->headers->all());
+        if ($request->header("API_KEY") != "helloatg") {
             return response()->json(["status" => 0, "message" => "Invalid API key"]);
         }
         return $next($request);

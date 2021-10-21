@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class task extends Model
 {
     use HasFactory;
+
+    function getUserRelation()
+    {
+        return $this->hasOne("App\Models\User", "id", "user_id");
+    }
 }
