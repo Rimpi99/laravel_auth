@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get("/todos", [taskController::class, "get_all_task"]);
-Route::post("/todos/add", [taskController::class, "add_task"]);
-Route::post("/todos/status", [taskController::class, "update_status"]);
+Route::post("/todos/add", [taskController::class, "add_task"])->name("api_add");
+Route::post("/todos/status", [taskController::class, "update_status"])->name("api_update");

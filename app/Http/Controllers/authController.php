@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,6 @@ class authController extends Controller
             "email" => ["required", "string", "email"],
             "password" => ["required", "string", "min:6"]
         ];
-
         $valid = $request->validate($rules);
 
         if (Auth::attempt(["email" => $request->email, "password" => $request->password])) {
@@ -55,7 +55,9 @@ class authController extends Controller
 
         if (Auth::check()) {
             $user = Auth::user();
-            return view("dashboard")->with("user", $user);
+            $tasks = task::where("user_id", "=", $user['id'])->get();
+            // return dd($tasks);
+            return view("dashboard")->with("user", $user)->with("tasks", $tasks);
         } else {
             return redirect("/login");
         }

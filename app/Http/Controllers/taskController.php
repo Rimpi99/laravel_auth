@@ -29,7 +29,7 @@ class taskController extends Controller
         $task = new task();
         $task->task = $request->task;
 
-        $user = User::find(1);
+        $user = User::where("id", "=", $request->id)->get()->first();
         $s = $user->getTasksRelation()->save($task);
         if ($s) {
             return response()->json([
